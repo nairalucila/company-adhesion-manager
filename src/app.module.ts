@@ -1,10 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { CompanyController } from './client/company.controller';
+import { AddCompanyUseCase } from './core/application/uses-cases/add-company.usecase';
+import { CompanyRepository } from './infraestructure/persistance/company.repository';
 
 @Module({
   imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [CompanyController],
+  providers: [
+    AddCompanyUseCase,
+    {
+      provide: 'ICompanyRepository',
+      useClass: CompanyRepository,
+    },
+  ],
 })
 export class AppModule {}
