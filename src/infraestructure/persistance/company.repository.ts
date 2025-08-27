@@ -18,7 +18,7 @@ export class CompanyRepository implements ICompanyRepository {
     try {
       const fileContent = await fs.readFile(this.filePath, 'utf-8');
 
-      const companiesData = JSON.parse(fileContent) as ICompany[];
+      const companiesData = JSON.parse(fileContent) as Company[];
 
       return companiesData.map((data) => {
         return new Company(
@@ -38,6 +38,7 @@ export class CompanyRepository implements ICompanyRepository {
 
   async addCompany(company: Company): Promise<void> {
     try {
+      console.log('Repository Body-->', company);
       return await fs.writeFile(
         this.filePath,
         JSON.stringify(company, null, 2),

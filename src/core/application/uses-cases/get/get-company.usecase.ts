@@ -26,14 +26,16 @@ export class GetCompanyUseCase {
     return companiesFiltered;
   }
 
-  //TODO: separar la funcion de fecha como un util
   //Obtener las empresas que se adhirieron en el último mes.
   async getCompaniesByAdhesionDate(): Promise<ICompany[]> {
     try {
       const data = await this.companyRepository.getAllCompanies();
       const lastMonth = getLastMonth();
-
-      return data.filter((company) => company.adhesionDate > lastMonth);
+      const companiesFiltered = data.filter((company) => {
+        const adhesionLastMonth = company.adhesionDate.substring(0, 7);
+        return adhesionLastMonth === lastMonth;
+      });
+      return companiesFiltered;
     } catch (error) {
       console.log('Simulando un error de retorno en casos de usos', error);
       throw error;

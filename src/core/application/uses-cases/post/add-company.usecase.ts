@@ -3,7 +3,8 @@ import { Inject } from '@nestjs/common';
 
 /*Features */
 import type { ICompanyRepository } from '../../../../core/application/ports/company.repository.interface';
-//import { Company } from 'src/core/domain/company.entity';
+import { Company } from 'src/core/domain/company.entity';
+import { ICompanyInput } from 'src/core/domain/company.interface';
 
 export class AddCompanyUseCase {
   constructor(
@@ -11,14 +12,24 @@ export class AddCompanyUseCase {
     private readonly companyRepository: ICompanyRepository,
   ) {}
 
-  async addCompany(inputOrCompany: any): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const result = await this.companyRepository.addCompany(inputOrCompany);
-    return result;
+  async addCompany(input: ICompanyInput): Promise<void> {
+    try {
+      //Refactorizar
+      const id = Math.floor(Math.random() * (100 - 1 + 1)).toString();
+      input.id = id;
+      input.adhesionDate = new Date().toISOString();
+      const company = new Company(
+        input.id,
+        input.name,
+        input.type,
+        input.adhesionDate,
+        input.transferDates,
+      );
+      const result = await this.companyRepository.addCompany(company);
+      return result;
+    } catch (error) {
+      console.log('Error to add company', error);
+      throw error;
+    }
   }
 }
-
-//TODO: UN CASO DE USO POR FUNCION, YA QUE ESTO SERIA EL SERVICIO
-/** getCompaniesByLastMonthTransfers(): Promise<Company[]>;
-  getCompaniesByAdhesionDate(): Promise<Company[]>;
-  addCompany(company: Company): Promise<void>; */
