@@ -18,7 +18,8 @@ export class GetCompanyUseCase {
     const lastMonth = currentMonth
       .setMonth(currentMonth.getMonth() - 1)
       .toString();
-    console.log(currentMonth, '-and-', lastMonth);
+
+    console.log('Transfers');
 
     return data.filter((company) =>
       company.transferDates.some((date) => date > lastMonth),
@@ -28,11 +29,19 @@ export class GetCompanyUseCase {
   //TODO: separar la funcion de fecha como un util
   //Obtener las empresas que se adhirieron en el último mes.
   async getCompaniesByAdhesionDate(): Promise<ICompany[]> {
-    const data = await this.companyRepository.getAllCompanies();
-    const currentMonth = new Date();
-    const lastMonth = currentMonth
-      .setMonth(currentMonth.getMonth() - 1)
-      .toString();
-    return data.filter((company) => company.adhesionDate > lastMonth);
+    try {
+      const data = await this.companyRepository.getAllCompanies();
+      const currentMonth = new Date();
+      const lastMonth = currentMonth
+        .setMonth(currentMonth.getMonth() - 1)
+        .toString();
+
+      //Formatear fecha
+      console.log(currentMonth, '-and-', lastMonth);
+      return data.filter((company) => company.adhesionDate > lastMonth);
+    } catch (error) {
+      console.log('Simulando un error de retorno en casos de usos', error);
+      throw error;
+    }
   }
 }

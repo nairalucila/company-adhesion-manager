@@ -2,7 +2,7 @@
 import { Inject } from '@nestjs/common';
 
 /*Features */
-import type { ICompanyRepository } from '../ports/company.repository.interface';
+import type { ICompanyRepository } from '../../../../core/application/ports/company.repository.interface';
 //import { Company } from 'src/core/domain/company.entity';
 
 export class AddCompanyUseCase {

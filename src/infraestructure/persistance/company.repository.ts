@@ -8,6 +8,8 @@ import { CompanyEnum, ICompany } from 'src/core/domain/company.interface';
 export class CompanyRepository implements ICompanyRepository {
   private readonly filePath: string = path.join(
     __dirname,
+    '..',
+    '..',
     'utils',
     'json-company-data.json',
   );
@@ -17,7 +19,6 @@ export class CompanyRepository implements ICompanyRepository {
       const fileContent = await fs.readFile(this.filePath, 'utf-8');
 
       const companiesData = JSON.parse(fileContent) as ICompany[];
-      console.log('REPOSITORY SHAPE, companies data-->', companiesData);
 
       return companiesData.map((data) => {
         return new Company(
