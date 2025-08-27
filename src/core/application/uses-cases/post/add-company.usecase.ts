@@ -1,5 +1,9 @@
+/*Commons */
 import { Inject } from '@nestjs/common';
-import type { ICompanyRepository } from '../ports/out/company.repository.interface';
+
+/*Features */
+import type { ICompanyRepository } from '../ports/company.repository.interface';
+//import { Company } from 'src/core/domain/company.entity';
 
 export class AddCompanyUseCase {
   constructor(
@@ -13,3 +17,8 @@ export class AddCompanyUseCase {
     return result;
   }
 }
+
+//TODO: UN CASO DE USO POR FUNCION, YA QUE ESTO SERIA EL SERVICIO
+/** getCompaniesByLastMonthTransfers(): Promise<Company[]>;
+  getCompaniesByAdhesionDate(): Promise<Company[]>;
+  addCompany(company: Company): Promise<void>; */

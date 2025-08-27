@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Company } from 'src/core/domain/company.entity';
-import { ICompanyRepository } from 'src/core/application/ports/out/company.repository.interface';
+import { ICompanyRepository } from 'src/core/application/ports/company.repository.interface';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { CompanyType } from 'src/core/domain/company.entity';
+import { CompanyEnum, ICompany } from 'src/core/domain/company.interface';
 
-//TODO: Recordar eliminar los disables de Eslint.
 export class CompanyRepository implements ICompanyRepository {
   private readonly filePath: string = path.join(
     __dirname,
@@ -13,48 +12,38 @@ export class CompanyRepository implements ICompanyRepository {
     'json-company-data.json',
   );
 
-  async getCompaniesByLastMonthTransfers(): Promise<Company[]> {
-    //TODO: Añadir metetodo para leer los files.
-    // - Falta agregar el servicio para que filtre por mes.
-    const empresa = new Company(
-      '5',
-      'Mate.io.',
-      CompanyType.Pyme,
-      '2024-07-15T10:00:00Z',
-      ['2025-03-20T11:30:00Z'],
-    );
+  async getAllCompanies(): Promise<Company[]> {
+    try {
+      const fileContent = await fs.readFile(this.filePath, 'utf-8');
 
-    return Promise.resolve([empresa]);
-  }
+      const companiesData = JSON.parse(fileContent) as ICompany[];
+      console.log('REPOSITORY SHAPE, companies data-->', companiesData);
 
-  async getCompaniesByAdhesionDate(): Promise<Company[]> {
-    //TODO: COMPLETAR ESTO
-    const empresa = new Company(
-      '5',
-      'Mate.io.',
-      CompanyType.Pyme,
-      '2024-07-15T10:00:00Z',
-      ['2025-03-20T11:30:00Z'],
-    );
-
-    return Promise.resolve([empresa]);
+      return companiesData.map((data) => {
+        return new Company(
+          data.id,
+          data.name,
+          data.type,
+          data.adhesionDate,
+          data.transferDates,
+        );
+      });
+    } catch (error) {
+      //TODO: agregar exception handler error
+      console.error('Error reading file:', error);
+      throw error;
+    }
   }
 
   async addCompany(company: Company): Promise<void> {
-    //TODO:esto es simulado
-    const empresa = new Company(
-      '7',
-      'Simulador.io.',
-      CompanyType.Corporativa,
-      '2024-07-15T10:00:00Z',
-      ['2025-03-20T11:30:00Z'],
-    );
-
-    const emp = await fs.writeFile(
-      this.filePath,
-      JSON.stringify(empresa, null, 2),
-    );
-
-    return;
+    try {
+      return await fs.writeFile(
+        this.filePath,
+        JSON.stringify(company, null, 2),
+      );
+    } catch (error) {
+      //TODO: agregar exception handler error
+      console.log('Simulando un error de retorno');
+    }
   }
 }
