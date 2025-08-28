@@ -8,3 +8,8 @@ export const getLastMonth = (): string => {
   const lastMonth = `${year}-${month}`;
   return lastMonth;
 };
+
+export const generateId = (): string => {
+  const id = Math.floor(Math.random() * (100 - 1 + 1)).toString();
+  return id;
+};

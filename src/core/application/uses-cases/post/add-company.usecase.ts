@@ -6,6 +6,9 @@ import type { ICompanyRepository } from '../../../../core/application/ports/comp
 import { Company } from 'src/core/domain/company.entity';
 import { ICompanyInput } from 'src/core/domain/company.interface';
 
+/*Utils */
+import { generateId } from '../utils/utils.usescases';
+
 export class AddCompanyUseCase {
   constructor(
     @Inject('ICompanyRepository')
@@ -14,8 +17,7 @@ export class AddCompanyUseCase {
 
   async addCompany(input: ICompanyInput): Promise<void> {
     try {
-      //Refactorizar
-      const id = Math.floor(Math.random() * (100 - 1 + 1)).toString();
+      const id = generateId();
       input.id = id;
       input.adhesionDate = new Date().toISOString();
       const company = new Company(
