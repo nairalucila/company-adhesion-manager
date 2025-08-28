@@ -3,8 +3,8 @@ import { Inject } from '@nestjs/common';
 
 /*Features */
 import type { ICompanyRepository } from '../../../../core/application/ports/company.repository.interface';
-import { Company } from 'src/core/domain/company.entity';
-import { ICompanyInput } from 'src/core/domain/company.interface';
+import { Company } from '../../../../core/domain/company.entity';
+import { ICompanyInput } from '../../../../core/domain/company.interface';
 
 /*Utils */
 import { generateId } from '../utils/utils.usescases';
@@ -15,7 +15,7 @@ export class AddCompanyUseCase {
     private readonly companyRepository: ICompanyRepository,
   ) {}
 
-  async addCompany(input: ICompanyInput): Promise<Company[]> {
+  addCompany = async (input: ICompanyInput): Promise<Company[]> => {
     try {
       const id = generateId();
       input.id = id;
@@ -33,5 +33,5 @@ export class AddCompanyUseCase {
       console.log('Error to add company', error);
       throw error;
     }
-  }
+  };
 }

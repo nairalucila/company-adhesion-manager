@@ -1,5 +1,5 @@
-import { Company } from 'src/core/domain/company.entity';
-import { ICompanyRepository } from 'src/core/application/ports/company.repository.interface';
+import { Company } from '../../core/domain/company.entity';
+import { ICompanyRepository } from '../../core/application/ports/company.repository.interface';
 import { promises as fs } from 'fs';
 import path from 'path';
 
