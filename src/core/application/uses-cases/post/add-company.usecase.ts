@@ -15,7 +15,7 @@ export class AddCompanyUseCase {
     private readonly companyRepository: ICompanyRepository,
   ) {}
 
-  async addCompany(input: ICompanyInput): Promise<void> {
+  async addCompany(input: ICompanyInput): Promise<Company[]> {
     try {
       const id = generateId();
       input.id = id;

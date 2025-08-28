@@ -39,7 +39,7 @@ export class CompanyController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('/adhesion')
-  async addCompany(@Body() input: ICompanyInput) {
+  async addCompany(@Body() input: ICompanyInput): Promise<ICompany[]> {
     const data = await this.addCompanyUseCase.addCompany(input);
     return data;
   }

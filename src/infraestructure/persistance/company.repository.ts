@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Company } from 'src/core/domain/company.entity';
 import { ICompanyRepository } from 'src/core/application/ports/company.repository.interface';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { CompanyEnum, ICompany } from 'src/core/domain/company.interface';
 
 export class CompanyRepository implements ICompanyRepository {
   private readonly filePath: string = path.join(
@@ -36,16 +34,21 @@ export class CompanyRepository implements ICompanyRepository {
     }
   }
 
-  async addCompany(company: Company): Promise<void> {
+  async addCompany(company: Company): Promise<Company[]> {
+    //TODO: Agregar logica para agregar una nueva empresa al array de empresas
     try {
-      console.log('Repository Body-->', company);
-      return await fs.writeFile(
-        this.filePath,
-        JSON.stringify(company, null, 2),
-      );
+      const getAllCompanies = await this.getAllCompanies();
+      getAllCompanies.push(company);
+
+      const updatedJson = JSON.stringify(getAllCompanies, null, 2);
+      await fs.writeFile(this.filePath, updatedJson, 'utf8');
+      const data = await this.getAllCompanies();
+      //JSON.stringify(data);
+      return data;
     } catch (error) {
       //TODO: agregar exception handler error
       console.log('Simulando un error de retorno');
+      throw error; // Lanzar el error para cumplir con el tipo de retorno Promise<Company[]>
     }
   }
 }
