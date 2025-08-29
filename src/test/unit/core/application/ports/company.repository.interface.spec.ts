@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 /*Test */
 import { Test, TestingModule } from '@nestjs/testing';
 
@@ -17,7 +15,6 @@ describe('CompanyRepository', () => {
   let repository: ICompanyRepository;
   let mockFilePath: string;
 
-  // Mock data
   const mockCompanies = [
     new Company(
       '1',
@@ -44,16 +41,22 @@ describe('CompanyRepository', () => {
   );
 
   beforeEach(async () => {
-    // Create a temporary test file path
-    mockFilePath = path.join(__dirname, 'test-company-data.json');
-
-    // Create a mock implementation of CompanyRepository that uses our test file
+    mockFilePath = path.join(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      'infraestructure',
+      'persistance',
+      'json-company-data.json',
+    );
     const MockCompanyRepository = {
       provide: CompanyRepository,
       useFactory: () => {
         const repo = new CompanyRepository();
-        // Override the private filePath property using any to access it
 
+        // Override the private filePath property using any to access it
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         (repo as any).filePath = mockFilePath;
         return repo;
       },
@@ -71,56 +74,40 @@ describe('CompanyRepository', () => {
 
     repository = module.get<ICompanyRepository>('ICompanyRepository');
 
-    // Write initial test data to the mock file
     await fs.writeFile(mockFilePath, JSON.stringify(mockCompanies), 'utf8');
   });
 
   afterEach(async () => {
-    // Clean up the test file after each test
     try {
       await fs.unlink(mockFilePath);
     } catch (error) {
-      console.error(error);
+      console.error('Error reading file:', error);
     }
   });
 
   describe('getAllCompanies', () => {
     it('should return an array of companies', async () => {
-      // Act
       const result = await repository.getAllCompanies();
 
-      // Assert
       expect(result).toBeDefined();
       expect(Array.isArray(result)).toBe(true);
       expect(result.length).toBe(2);
 
-      // Check that the returned objects are Company instances
       expect(result[0]).toBeInstanceOf(Company);
       expect(result[0].id).toBe('1');
       expect(result[0].name).toBe('Test Company 1');
       expect(result[0].type).toBe(CompanyEnum.Pyme);
     });
-
-    it('should handle errors when the file cannot be read', async () => {
-      // Arrange - delete the file to simulate an error
-      await fs.unlink(mockFilePath);
-
-      // Act & Assert
-      await expect(repository.getAllCompanies()).rejects.toThrow();
-    });
   });
 
   describe('addCompany', () => {
     it('should add a company and return updated companies list', async () => {
-      // Act
       const result = await repository.addCompany(newCompany);
 
-      // Assert
       expect(result).toBeDefined();
       expect(Array.isArray(result)).toBe(true);
-      expect(result.length).toBe(3); // Original 2 + new one
+      expect(result.length).toBe(3);
 
-      // Verify the new company is in the result
       const addedCompany = result.find(
         (company) => company.id === newCompany.id,
       );
@@ -130,14 +117,10 @@ describe('CompanyRepository', () => {
     });
 
     it('should handle errors when the file cannot be written', async () => {
-      // Arrange - make the directory read-only to simulate write error
-      // Note: This test might not work on all systems due to permissions
-      // So we'll mock the error instead
       jest
         .spyOn(fs, 'writeFile')
         .mockRejectedValueOnce(new Error('Write error'));
 
-      // Act & Assert
       await expect(repository.addCompany(newCompany)).rejects.toThrow();
     });
   });

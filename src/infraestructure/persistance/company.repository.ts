@@ -27,10 +27,14 @@ export class CompanyRepository implements ICompanyRepository {
           data.transferDates,
         );
       });
-    } catch (error) {
+    } catch (error: unknown) {
       //TODO: agregar exception handler error
       console.error('Error reading file:', error);
-      throw error;
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Unknown error reading companies file',
+      );
     }
   };
 
@@ -45,10 +49,12 @@ export class CompanyRepository implements ICompanyRepository {
       const data = await this.getAllCompanies();
       //JSON.stringify(data);
       return data;
-    } catch (error) {
+    } catch (error: unknown) {
       //TODO: agregar exception handler error
       console.log('Simulando un error de retorno');
-      throw error; // Lanzar el error para cumplir con el tipo de retorno Promise<Company[]>
+      throw new Error(
+        error instanceof Error ? error.message : 'Unknown error adding company',
+      );
     }
   };
 }

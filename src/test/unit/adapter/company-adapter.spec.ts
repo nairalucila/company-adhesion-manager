@@ -70,27 +70,22 @@ describe('CompanyController', () => {
 
   describe('getAdheredCompanies', () => {
     it('should return an array of companies adhered in the last month', async () => {
-      // Arrange
       jest
         .spyOn(getCompanyUseCase, 'getCompaniesByAdhesionDate')
         .mockResolvedValue(mockCompanies);
 
-      // Act
       const result = await controller.getAdheredCompanies();
 
-      // Assert
       expect(result).toEqual(mockCompanies);
       expect(getCompanyUseCase.getCompaniesByAdhesionDate).toHaveBeenCalled();
     });
 
     it('should handle errors when getting adhered companies', async () => {
-      // Arrange
       const errorMessage = 'Database connection error';
       jest
         .spyOn(getCompanyUseCase, 'getCompaniesByAdhesionDate')
         .mockRejectedValue(new Error(errorMessage));
 
-      // Act & Assert
       await expect(controller.getAdheredCompanies()).rejects.toThrow(Error);
       expect(getCompanyUseCase.getCompaniesByAdhesionDate).toHaveBeenCalled();
     });
@@ -98,15 +93,12 @@ describe('CompanyController', () => {
 
   describe('getTransferringCompanies', () => {
     it('should return an array of companies with transfers in the last month', async () => {
-      // Arrange
       jest
         .spyOn(getCompanyUseCase, 'getCompaniesLastMonthTransfers')
         .mockResolvedValue(mockCompanies);
 
-      // Act
       const result = await controller.getTransferringCompanies();
 
-      // Assert
       expect(result).toEqual(mockCompanies);
       expect(
         getCompanyUseCase.getCompaniesLastMonthTransfers,
@@ -114,13 +106,11 @@ describe('CompanyController', () => {
     });
 
     it('should handle errors when getting transferring companies', async () => {
-      // Arrange
       const errorMessage = 'Service unavailable';
       jest
         .spyOn(getCompanyUseCase, 'getCompaniesLastMonthTransfers')
         .mockRejectedValue(new Error(errorMessage));
 
-      // Act & Assert
       await expect(controller.getTransferringCompanies()).rejects.toThrow(
         Error,
       );
@@ -132,25 +122,22 @@ describe('CompanyController', () => {
 
   describe('addCompany', () => {
     it('should add a new company and return updated companies list', async () => {
-      // Arrange
+      const mockAdhesionDate = '2025-08-28T23:44:27.000Z';
       const newCompanyList = [
         ...mockCompanies,
         {
           ...mockCompanyInput,
           id: '3',
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          adhesionDate: expect.any(String),
+          adhesionDate: mockAdhesionDate,
         },
       ];
 
       jest
         .spyOn(addCompanyUseCase, 'addCompany')
-        .mockResolvedValue(newCompanyList as ICompany[]);
+        .mockResolvedValue(newCompanyList);
 
-      // Act
       const result = await controller.addCompany(mockCompanyInput);
 
-      // Assert
       expect(result).toEqual(newCompanyList);
       expect(addCompanyUseCase.addCompany).toHaveBeenCalledWith(
         mockCompanyInput,
@@ -158,13 +145,11 @@ describe('CompanyController', () => {
     });
 
     it('should handle errors when adding a company', async () => {
-      // Arrange
       const errorMessage = 'Failed to add company';
       jest
         .spyOn(addCompanyUseCase, 'addCompany')
         .mockRejectedValue(new Error(errorMessage));
 
-      // Act & Assert
       await expect(controller.addCompany(mockCompanyInput)).rejects.toThrow(
         Error,
       );
