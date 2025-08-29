@@ -12,7 +12,12 @@ export class GetCompanyUseCase {
     private readonly companyRepository: ICompanyRepository,
   ) {}
 
-  //Obtener las empresas que realizaron transferencias en el último mes.
+  /**
+   * This method returns the companies that made transfers in the last month.
+   *
+   * @return {*}  {Promise<ICompany[]>}
+   * @memberof GetCompanyUseCase
+   */
   getCompaniesLastMonthTransfers = async (): Promise<ICompany[]> => {
     const data = await this.companyRepository.getAllCompanies();
     const lastMonth = getLastMonth();
@@ -26,7 +31,12 @@ export class GetCompanyUseCase {
     return companiesFiltered;
   };
 
-  //Obtener las empresas que se adhirieron en el último mes.
+  /**
+   * This method returns the companies that was adhered in the last month.
+   *
+   * @return {*}  {Promise<ICompany[]>}
+   * @memberof GetCompanyUseCase
+   */
   getCompaniesByAdhesionDate = async (): Promise<ICompany[]> => {
     try {
       const data = await this.companyRepository.getAllCompanies();
@@ -42,18 +52,3 @@ export class GetCompanyUseCase {
     }
   };
 }
-
-/**  async getCompaniesByAdhesionDate(): Promise<ICompany[]> {
-    try {
-      const data = await this.companyRepository.getAllCompanies();
-      const lastMonth = getLastMonth();
-      const companiesFiltered = data.filter((company) => {
-        const adhesionLastMonth = company.adhesionDate.substring(0, 7);
-        return adhesionLastMonth === lastMonth;
-      });
-      return companiesFiltered;
-    } catch (error) {
-      console.log('Simulando un error de retorno en casos de usos', error);
-      throw error;
-    }
-  } */

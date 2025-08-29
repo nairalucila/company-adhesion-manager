@@ -15,6 +15,13 @@ export class AddCompanyUseCase {
     private readonly companyRepository: ICompanyRepository,
   ) {}
 
+  /**
+   * This method adds a company to the repository.
+   *
+   * @param {ICompanyInput} input
+   * @return {*}  {Promise<Company[]>}
+   * @memberof AddCompanyUseCase
+   */
   addCompany = async (input: ICompanyInput): Promise<Company[]> => {
     try {
       const id = generateId();
