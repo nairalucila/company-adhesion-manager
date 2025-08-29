@@ -12,7 +12,7 @@ export class CompanyRepository implements ICompanyRepository {
     'json-company-data.json',
   );
 
-  async getAllCompanies(): Promise<Company[]> {
+  getAllCompanies = async (): Promise<Company[]> => {
     try {
       const fileContent = await fs.readFile(this.filePath, 'utf-8');
 
@@ -32,9 +32,9 @@ export class CompanyRepository implements ICompanyRepository {
       console.error('Error reading file:', error);
       throw error;
     }
-  }
+  };
 
-  async addCompany(company: Company): Promise<Company[]> {
+  addCompany = async (company: Company): Promise<Company[]> => {
     //TODO: Agregar logica para agregar una nueva empresa al array de empresas
     try {
       const getAllCompanies = await this.getAllCompanies();
@@ -50,5 +50,5 @@ export class CompanyRepository implements ICompanyRepository {
       console.log('Simulando un error de retorno');
       throw error; // Lanzar el error para cumplir con el tipo de retorno Promise<Company[]>
     }
-  }
+  };
 }
