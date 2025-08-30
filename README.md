@@ -51,7 +51,7 @@ Una vez que tengas el proyecto instalado, puedes probarlo de forma local.
     ```json
     {
     	"name": "Pyme Tech Example",
-    	"type": "Pyme",
+    	"type": "Pyme | Corporativa",
     	"adhesionDate": "2025-07-22",
     	"transferDates": []
     }
