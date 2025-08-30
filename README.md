@@ -33,6 +33,9 @@ Sigue estos sencillos pasos para tener el proyecto funcionando en tu máquina lo
 ## ▶️ Uso del Proyecto
 
 Una vez que tengas el proyecto instalado, puedes probarlo de forma local.
+La API cuenta con 3 endpoints según los requerimientos estimados. La API permite agregar una empresa que puede ser Pyme o Corporativa. Mediante un endpoint se podrá obtener una lista de aquellas empresas que hicieron transferencias en el último mes según el mes actual. Y el último endpoint permite obtener una lista de aquellas empresas que se adhirieron en el último mes según el mes actual.
+Lo que se utilizó para persistir los datos es un archivo JSON que se encuentra en la carpeta src/utils/json-company-data.json el cual puede ser leído y modificado.
+
 
 1.  Inicia el servidor de desarrollo.
     ```bash
