@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 
 /*Features */
-import { GetCompanyUseCase } from '../core/application/uses-cases/get/get-company.usecase';
-import { AddCompanyUseCase } from '../core/application/uses-cases/post/add-company.usecase';
+import { GetCompanyUseCase } from '../core/application/uses-cases/get-company/get-company.usecase';
+import { AddCompanyUseCase } from '../core/application/uses-cases/add-company/add-company.usecase';
 import type { ICompanyInput, ICompany } from '../core/domain/company.interface';
 
 /**

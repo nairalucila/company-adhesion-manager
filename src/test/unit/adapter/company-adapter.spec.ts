@@ -8,8 +8,8 @@ import {
   ICompany,
   ICompanyInput,
 } from '../../../core/domain/company.interface';
-import { GetCompanyUseCase } from '../../../core/application/uses-cases/get/get-company.usecase';
-import { AddCompanyUseCase } from '../../../core/application/uses-cases/post/add-company.usecase';
+import { GetCompanyUseCase } from '../../../core/application/uses-cases/get-company/get-company.usecase';
+import { AddCompanyUseCase } from '../../../core/application/uses-cases/add-company/add-company.usecase';
 
 describe('CompanyController', () => {
   let controller: CompanyController;

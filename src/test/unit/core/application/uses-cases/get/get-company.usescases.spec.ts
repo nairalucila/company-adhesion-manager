@@ -2,7 +2,7 @@
 import { Test } from '@nestjs/testing';
 
 /*Features */
-import { GetCompanyUseCase } from '../../../../../../core/application/uses-cases/get/get-company.usecase';
+import { GetCompanyUseCase } from '../../../../../../core/application/uses-cases/get-company/get-company.usecase';
 import {
   ICompany,
   CompanyEnum,

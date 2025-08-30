@@ -58,7 +58,8 @@ export const classValidator = <T>(
               error instanceof Error ? error.message : 'Invalid request body',
           }),
         };
-
+        // Disable eslint rule because custom object error is thrown.
+        // eslint-disable-next-line @typescript-eslint/only-throw-error
         throw response;
       }
     }

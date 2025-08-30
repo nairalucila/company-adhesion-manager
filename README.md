@@ -60,6 +60,16 @@ Una vez que tengas el proyecto instalado, puedes probarlo de forma local.
 ---
 
 ## ✅ Pruebas
+<comment-tag id="6">*Nota: La fecha de adhesión y el ID de la empresa se generarán automáticamente.*</comment-tag id="6" text="Esta nota es importante, pero su formato es un poco informal y se pierde visualmente. Incorporar la información directamente en la descripción del endpoint, usando la sintaxis de lista de Markdown, la hace más prominente y fácil de leer.
+'**`POST /adhesion`**: Agrega una nueva empresa a la base de datos.
+**Body de la solicitud:**
+```json
+{
+	"name": "Pyme Tech Example",
+	"type": "Pyme",
+   "adhesionDate": "2025-07-22", // Format: YYYY-MM-DD No Mandatory
+	"transferDates": []
+}
 
 El proyecto incluye pruebas unitarias para asegurar la calidad del código.
 

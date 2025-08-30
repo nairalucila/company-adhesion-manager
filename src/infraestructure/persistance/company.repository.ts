@@ -18,6 +18,7 @@ export class CompanyRepository implements ICompanyRepository {
     __dirname,
     '..',
     '..',
+    '..',
     'utils',
     'json-company-data.json',
   );
@@ -44,12 +45,10 @@ export class CompanyRepository implements ICompanyRepository {
         );
       });
     } catch (error: unknown) {
-      //TODO: agregar exception handler error
-      console.error('Error reading file:', error);
       throw new Error(
         error instanceof Error
           ? error.message
-          : 'Unknown error reading companies file',
+          : 'There was an error getting companies file',
       );
     }
   };
@@ -71,10 +70,10 @@ export class CompanyRepository implements ICompanyRepository {
       const data = await this.getAllCompanies();
       return data;
     } catch (error: unknown) {
-      //TODO: agregar exception handler error
-      console.log('Simulando un error de retorno');
       throw new Error(
-        error instanceof Error ? error.message : 'Unknown error adding company',
+        error instanceof Error
+          ? error.message
+          : 'There was an error adding new company',
       );
     }
   };

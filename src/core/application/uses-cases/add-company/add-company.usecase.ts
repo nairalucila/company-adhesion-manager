@@ -23,22 +23,19 @@ export class AddCompanyUseCase {
    * @memberof AddCompanyUseCase
    */
   addCompany = async (input: ICompanyInput): Promise<Company[]> => {
-    try {
-      const id = generateId();
-      input.id = id;
+    const id = generateId();
+    input.id = id;
+    if (!input.adhesionDate) {
       input.adhesionDate = new Date().toISOString();
-      const company = new Company(
-        input.id,
-        input.name,
-        input.type,
-        input.adhesionDate,
-        input.transferDates,
-      );
-      const result = await this.companyRepository.addCompany(company);
-      return result;
-    } catch (error) {
-      console.log('Error to add company', error);
-      throw error;
     }
+    const company = new Company(
+      input.id,
+      input.name,
+      input.type,
+      input.adhesionDate,
+      input.transferDates,
+    );
+    const result = await this.companyRepository.addCompany(company);
+    return result;
   };
 }
