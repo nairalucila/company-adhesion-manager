@@ -1,98 +1,80 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Company Adhesion Manager
+Este repositorio contiene el código para la aplicación Company Adhesion Manager, una API diseñada para gestionar la adhesión y transferencias de empresas. Está construida para ser un servicio backend eficiente y escalable.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 🚀 Tecnologías
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+* **Node.js**: Entorno de ejecución de JavaScript del lado del servidor.
 
-## Description
+* **NestJS**: Un framework progresivo de Node.js para construir aplicaciones del lado del servidor.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+* **Lambda**: Utilizado para desplegar y ejecutar el código en un entorno sin servidor.
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+## ⚙️ Instalación
 
-## Compile and run the project
+Sigue estos sencillos pasos para tener el proyecto funcionando en tu máquina local.
 
-```bash
-# development
-$ npm run start
+1. Clona el repositorio en tu máquina o descargalo como zip.
 
-# watch mode
-$ npm run start:dev
+   ```bash
+   git clone https://github.com/nairalucila/company-adhesion-manager.git
 
-# production mode
-$ npm run start:prod
-```
+2. Navega hasta el directorio del proyecto en tu terminal.
 
-## Run tests
+   ```bash
+	cd company-adhesion-manager
 
-```bash
-# unit tests
-$ npm run test
+3. Instala las dependencias del proyecto.
 
-# e2e tests
-$ npm run test:e2e
+   ```bash
+	npm i
 
-# test coverage
-$ npm run test:cov
-```
+## ▶️ Uso del Proyecto
 
-## Deployment
+Una vez que tengas el proyecto instalado, puedes probarlo de forma local.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+1.  Inicia el servidor de desarrollo.
+    ```bash
+    npm run start
+    ```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+2.  Accede a las rutas de la API desde tu navegador o una aplicación como [Insomnia](https://insomnia.rest/) o [Postman](https://www.postman.com/). La URL base es `http://localhost:3000`.
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+### Endpoints Disponibles
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+* `GET /transfers`: Obtiene una lista de las empresas que transfirieron en el último mes.
+* `GET /adhesions`: Obtiene una lista de las empresas que se adhirieron en el último mes.
+* `POST /adhesion`: Agrega una nueva empresa a la base de datos.
 
-## Resources
+  **Body de la solicitud:**
+    ```json
+    {
+    	"name": "Pyme Tech Example",
+    	"type": "Pyme | Corporativa",
+    	"adhesionDate": "2025-07-22",
+    	"transferDates": []
+    }
+    ```
+    *Nota: El ID y la fecha de adhesión si no existe se generarán automáticamente por lo que no son mandatorios*
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## ✅ Pruebas
 
-## Support
+El proyecto incluye pruebas unitarias para asegurar la calidad del código.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+* Ejecuta todas las pruebas unitarias:
+    ```bash
+    npm run test
+    ```
+* Verifica el porcentaje de cobertura de código:
+    ```bash
+    npm run test:cov
+    ```
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 📄 Licencia
 
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Este proyecto está bajo la [Licencia MIT](https://opensource.org/licenses/MIT).

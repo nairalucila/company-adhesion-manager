@@ -1,0 +1,38 @@
+[
+    {
+      "id": "1",
+      "name": "Tech Solutions Inc.",
+      "type": "Pyme",
+      "adhesionDate": "2025-07-15T10:00:00Z",
+      "transferDates": [
+        "2025-08-20T11:30:00Z",
+        "2025-08-10T15:45:00Z"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Global Corp",
+      "type": "Corporativa",
+      "adhesionDate": "2025-08-01T09:00:00Z",
+      "transferDates": [
+        "2025-08-22T14:00:00Z",
+        "2025-07-28T16:00:00Z"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Innovate Ltd.",
+      "type": "Pyme",
+      "adhesionDate": "2025-06-25T12:00:00Z",
+      "transferDates": [
+        "2025-08-05T09:00:00Z"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Finance Group SA",
+      "type": "Corporativa",
+      "adhesionDate": "2025-08-20T11:00:00Z",
+      "transferDates": []
+    }
+  ]

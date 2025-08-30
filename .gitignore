@@ -3,6 +3,10 @@
 /node_modules
 /build
 
+# aws-section
+/aws-section/dist
+/aws-section/node_modules
+
 # Logs
 logs
 *.log
